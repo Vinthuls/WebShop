@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebShop.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebShop
 {
@@ -24,6 +26,12 @@ namespace WebShop
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<DataContext>(opts =>
+            {
+                opts.UseSqlServer(Configuration[
+                    "ConnectionStrings:WebShopConnection"]);
+                opts.EnableSensitiveDataLogging(true);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

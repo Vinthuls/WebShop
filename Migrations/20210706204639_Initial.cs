@@ -7,7 +7,7 @@ namespace WebShop.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "categories",
+                name: "Categories",
                 columns: table => new
                 {
                     CategoryId = table.Column<long>(type: "bigint", nullable: false)
@@ -16,7 +16,7 @@ namespace WebShop.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_categories", x => x.CategoryId);
+                    table.PrimaryKey("PK_Categories", x => x.CategoryId);
                 });
 
             migrationBuilder.CreateTable(
@@ -51,9 +51,9 @@ namespace WebShop.Migrations
                 {
                     table.PrimaryKey("PK_Products", x => x.ProductId);
                     table.ForeignKey(
-                        name: "FK_Products_categories_CategoryId",
+                        name: "FK_Products_Categories_CategoryId",
                         column: x => x.CategoryId,
-                        principalTable: "categories",
+                        principalTable: "Categories",
                         principalColumn: "CategoryId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -81,7 +81,7 @@ namespace WebShop.Migrations
                 name: "Products");
 
             migrationBuilder.DropTable(
-                name: "categories");
+                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "Suppliers");

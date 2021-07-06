@@ -9,7 +9,7 @@ using WebShop.Models;
 namespace WebShop.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210706203032_Initial")]
+    [Migration("20210706204639_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,7 +32,7 @@ namespace WebShop.Migrations
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("categories");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("WebShop.Models.Product", b =>

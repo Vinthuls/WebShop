@@ -30,7 +30,7 @@ namespace WebShop.Migrations
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("categories");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("WebShop.Models.Product", b =>

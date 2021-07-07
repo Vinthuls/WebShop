@@ -7,10 +7,10 @@ using WebShop.Models;
 
 namespace WebShop.Components
 {
-    public class NavBarViewComponent : ViewComponent
+    public class NavigationBarViewComponent : ViewComponent
     {
         private DataContext context;
-        public NavBarViewComponent(DataContext dataContext)
+        public NavigationBarViewComponent(DataContext dataContext)
         {
             context = dataContext;
         }
@@ -19,7 +19,8 @@ namespace WebShop.Components
         {
             return View(context.Products
                 .Select(c => c.Category)
-                .Distinct().OrderBy(c => c));
+                .Distinct()
+                .OrderBy(c => c));
         }
     }
 }

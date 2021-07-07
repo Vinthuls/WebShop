@@ -22,13 +22,22 @@ namespace WebShop.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Product> products 
+            IEnumerable<Product> products
                 = _dataContext.Products
                     .Include(p => p.Category)
                     .Include(p => p.Supplier);
             return View(products);
         }
+        public IActionResult SelectCategory(long id)
+        {
+            IEnumerable<Product> products 
+                = _dataContext.Products
+                    .Include(p => p.Category)
+                    .Include(p => p.Supplier)
+                    .Where(p=> p.CategoryId == id);
+            return View("Index", products);
 
+        }
         public IActionResult Privacy()
         {
             return View();

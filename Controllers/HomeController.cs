@@ -5,22 +5,28 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using WebShop.Models;
 
 namespace WebShop.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        
+        private DataContext _dataContext;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(DataContext dataContext)
         {
-            _logger = logger;
+            _dataContext = dataContext;
         }
 
         public IActionResult Index()
         {
-            return View();
+            IEnumerable<Product> products 
+                = _dataContext.Products
+                    .Include(p => p.Category)
+                    .Include(p => p.Supplier);
+            return View(products);
         }
 
         public IActionResult Privacy()

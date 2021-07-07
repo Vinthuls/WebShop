@@ -1,8 +1,35 @@
-﻿@{
+﻿@model IEnumerable<Product>
+@{
+    Layout = "_Layout";
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div>   
+    <vc:nav-bar />
+</div>
+<div class="m-2">
+    <h4 class="bg-primary text-white text-center p-2">Products</h4>
+    <table class="table table-sm table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Supplier</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model)
+            {
+                <tr>
+                    <td>@p.ProductId</td>
+                    <td>@p.Name</td>
+                    <td>@p.Price</td>
+                    <td>@p.Category.Name</td>
+                    <td>@p.Supplier.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>

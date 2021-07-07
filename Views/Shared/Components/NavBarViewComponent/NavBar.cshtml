@@ -1,0 +1,17 @@
+﻿@model IEnumerable<string>
+
+
+<nav class="navbar navbar-expand-sm bg-light navbar-light">
+    <ul class="navbar-nav">
+        @foreach (var s in Model)
+        {
+            <li class="nav-item">
+                <a class="nav-link" href="#">@s</a>
+            </li>
+        }
+    </ul>
+    <form class="form-inline " action="/action_page.php">
+        <input class="form-control mr-sm-2" type="text" placeholder="Search">
+        <button class="btn btn-success pull-right" type="submit">Search</button>
+    </form>
+</nav>

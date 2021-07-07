@@ -38,6 +38,17 @@ namespace WebShop.Controllers
             return View("Index", products);
 
         }
+
+        public IActionResult FindProduct(string name)
+        {
+            IEnumerable<Product> product = null;
+            product = _dataContext.Products.Where(p=> p.Name == name);
+            /*if(product is null)
+            {
+                return RedirectToAction(nameof(Index));
+            }*/
+            return View("Index", product);
+        }
         public IActionResult Privacy()
         {
             return View();

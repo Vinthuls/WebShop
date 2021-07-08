@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Category>
 
-<nav class="navbar navbar-expand-sm bg-light navbar-light">
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-between">
     <ul class="navbar-nav">
         @foreach (var s in Model)
         {
@@ -13,4 +13,9 @@
             <a class="nav-link" asp-action="Index">All products</a>
         </li>
     </ul>
+    <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search"
+               placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
 </nav>

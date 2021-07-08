@@ -28,27 +28,28 @@ namespace WebShop.Controllers
                     .Include(p => p.Supplier);
             return View(products);
         }
-        public IActionResult SelectCategory(long id)
+        public async Task<IActionResult> SelectCategory(long id)
         {
             IEnumerable<Product> products 
-                = _dataContext.Products
+                = await _dataContext.Products
                     .Include(p => p.Category)
                     .Include(p => p.Supplier)
-                    .Where(p=> p.CategoryId == id);
+                    .FirstOrDefaultAsync(p => p.ProductId == id) as IEnumerable<Product>;
             return View("Index", products);
 
         }
 
-        public IActionResult FindProduct(string name)
+        public async Task<IActionResult> Read(long id)
         {
-            IEnumerable<Product> product = null;
-            product = _dataContext.Products.Where(p=> p.Name == name);
-            /*if(product is null)
-            {
-                return RedirectToAction(nameof(Index));
-            }*/
-            return View("Index", product);
+            Product product 
+                = await _dataContext.Products
+                    .Include(p => p.Category)
+                    .Include(p => p.Supplier)
+                    .FirstOrDefaultAsync(p => p.ProductId == id);
+            ProductViewModel model = ProductViewModelFactory.Read(product);
+            return View("~/Views/Form/FormView.cshtml", model);
         }
+ 
         public IActionResult Privacy()
         {
             return View();

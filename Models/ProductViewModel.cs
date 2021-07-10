@@ -9,7 +9,9 @@ namespace WebShop.Models
     {
         public Product Product { get; set; }
         public string ActionName { get; set; }
-        public string Color { get; set; }
-        public bool IsModifiable { get; set; } = false;
+        public string ThemeColor { get; set; }
+        public bool IsReadOnly { get; set; } = false;
+        public IEnumerable<Category> Categories { get; set; } = Enumerable.Empty<Category>();
+        public IEnumerable<Supplier> Suppliers { get; set; } = Enumerable.Empty<Supplier>();
     }
 }

@@ -23,22 +23,25 @@
         <tbody>
             @foreach (var p in Model)
             {
-            <tr>
-                <td>@p.ProductId</td>
-                <td>@p.Name</td>
-                <td>@p.Price</td>
-                <td>@p.Category.Name</td>
-                <td>@p.Supplier.Name</td>
-                <td class="text-center">
-                    <a class="btn btn-outline-info" asp-action="Read" 
-                       asp-route-id="@p.ProductId" role="button" >Read</a>
-                    <a class="btn btn-outline-secondary" asp-action="Update" 
-                       asp-route-id="@p.ProductId" role="button">Update</a>
-                    <a class="btn btn-outline-danger" asp-action="Delete"
-                       asp-route-id="@p.ProductId" role="button">Delete</a>
-                </td>
-            </tr>
+                <tr>
+                    <td>@p.ProductId</td>
+                    <td>@p.Name</td>
+                    <td>@p.Price</td>
+                    <td>@p.Category.Name</td>
+                    <td>@p.Supplier.Name</td>
+                    <td class="text-center">
+                        <a class="btn btn-outline-info" asp-action="Read" asp-controller="Form"
+                           asp-route-id="@p.ProductId" role="button">Read</a>
+                        <a class="btn btn-outline-secondary" asp-action="Update" asp-controller="Form"
+                           asp-route-id="@p.ProductId" role="button">Update</a>
+                        <a class="btn btn-outline-danger" asp-action="Delete" asp-controller="Form"
+                           asp-route-id="@p.ProductId" role="button">Delete</a>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
+    <div>
+        <a class="btn btn-outline-primary" asp-action="Create" asp-controller="Form" role="button">Create</a>
+    </div>
 </div>

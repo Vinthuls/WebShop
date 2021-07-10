@@ -11,10 +11,8 @@ using WebShop.Models;
 namespace WebShop.Controllers
 {
     public class HomeController : Controller
-    {
-        
+    {      
         private DataContext _dataContext;
-
         public HomeController(DataContext dataContext)
         {
             _dataContext = dataContext;
@@ -28,28 +26,16 @@ namespace WebShop.Controllers
                     .Include(p => p.Supplier);
             return View(products);
         }
-        public async Task<IActionResult> SelectCategory(long id)
+        public IActionResult SelectCategory(long id)
         {
             IEnumerable<Product> products 
-                = await _dataContext.Products
+                =  _dataContext.Products
                     .Include(p => p.Category)
                     .Include(p => p.Supplier)
-                    .FirstOrDefaultAsync(p => p.ProductId == id) as IEnumerable<Product>;
+                    .Where(p => p.CategoryId == id);
             return View("Index", products);
-
         }
 
-        public async Task<IActionResult> Read(long id)
-        {
-            Product product 
-                = await _dataContext.Products
-                    .Include(p => p.Category)
-                    .Include(p => p.Supplier)
-                    .FirstOrDefaultAsync(p => p.ProductId == id);
-            ProductViewModel model = ProductViewModelFactory.Read(product);
-            return View("~/Views/Form/FormView.cshtml", model);
-        }
- 
         public IActionResult Privacy()
         {
             return View();

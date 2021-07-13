@@ -43,20 +43,11 @@ namespace WebShop.Migrations
                     b.Property<long>("CategoryId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsOnSale")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<long>("Quantity")
-                        .HasColumnType("bigint");
 
                     b.Property<long>("SupplierId")
                         .HasColumnType("bigint");

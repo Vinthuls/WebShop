@@ -26,6 +26,7 @@ namespace WebShop.Controllers
                     .Include(p => p.Supplier);
             return View(products);
         }
+
         public IActionResult SelectCategory(long id)
         {
             IEnumerable<Product> products 
@@ -36,6 +37,15 @@ namespace WebShop.Controllers
             return View("Index", products);
         }
 
+        public IActionResult SearchProduct(string name)
+        {
+            IEnumerable<Product> products
+                = _dataContext.Products
+                    .Include(p => p.Category)
+                    .Include(p => p.Supplier)
+                    .Where(p => p.Name.Contains(name));
+            return View("Index", products);
+        }
         public IActionResult Privacy()
         {
             return View();

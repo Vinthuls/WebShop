@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebShop.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace WebShop
 {
@@ -25,6 +26,7 @@ namespace WebShop
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddRazorPages();
             services.AddControllersWithViews();
             services.AddDbContext<DataContext>(opts =>
             {
@@ -32,7 +34,13 @@ namespace WebShop
                     "ConnectionStrings:WebShopConnection"]);
                 opts.EnableSensitiveDataLogging(true);
             });
-            
+            services.AddDbContext<IdentityContext>(opts =>
+            {
+                opts.UseSqlServer(Configuration[
+                    "ConnectionStrings:IdentityConnection"]);
+            });
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<IdentityContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,6 +69,7 @@ namespace WebShop
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
 
             SeedData.SeedDatabase(context);

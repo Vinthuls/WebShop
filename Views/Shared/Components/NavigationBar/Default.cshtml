@@ -2,20 +2,24 @@
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-between">
     <ul class="navbar-nav">
-        @foreach (var s in Model)
+        @foreach (var c in Model)
         {
             <li class="nav-item">
                 <a class="nav-link" asp-action="SelectCategory"
-                   asp-route-id="@s.CategoryId">@s.Name</a>
+                   asp-route-id="@c.CategoryId">@c.Name</a>
             </li>
         }
         <li class="nav-item">
             <a class="nav-link" asp-action="Index">All products</a>
         </li>
     </ul>
-    <form class="form-inline">
-        <input class="form-control mr-sm-2" type="search"
-               placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+    <div class="navbar-nav">
+        <a class="nav-link nav-item">Login</a>
+        <a class="nav-link nav-item">Register</a>
+        <form class="form-inline nav-item" asp-controller="Home" asp-action="SearchProduct" method="get">
+            <input class="form-control mr-sm-2" type="search"
+                    placeholder="Search" aria-label="Search" name="name">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
 </nav>

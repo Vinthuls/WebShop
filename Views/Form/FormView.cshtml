@@ -35,13 +35,6 @@
             <option value="">Select Supplier</option>
         </select>
     </div>
-    <div class="form-group">
-        <label asp-for="Product.Description"></label>
-        <textarea rows="5" cols="40" asp-for="Product.Description"
-                  class="form-control" readonly="@Model.IsReadOnly">
-                @Model.Product.Description
-        </textarea>
-    </div>
     @if (!Model.IsReadOnly || Model.ActionName == "Delete")
     {
         <button class="btn btn-outline-@Model.ThemeColor" type="submit">@Model.ActionName</button>

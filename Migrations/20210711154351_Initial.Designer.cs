@@ -9,7 +9,7 @@ using WebShop.Models;
 namespace WebShop.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210706204639_Initial")]
+    [Migration("20210711154351_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,20 +45,11 @@ namespace WebShop.Migrations
                     b.Property<long>("CategoryId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsOnSale")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<long>("Quantity")
-                        .HasColumnType("bigint");
 
                     b.Property<long>("SupplierId")
                         .HasColumnType("bigint");

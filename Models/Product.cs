@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+
 namespace WebShop.Models
 {
     public class Product
@@ -11,9 +12,6 @@ namespace WebShop.Models
         public long ProductId { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
-        public long Quantity { get; set; }
-        public string Description { get; set; }
-        public bool IsOnSale { get; set; } = false;
         public long SupplierId { get; set; }
         public Supplier Supplier { get; set; }
         public long CategoryId { get; set; }

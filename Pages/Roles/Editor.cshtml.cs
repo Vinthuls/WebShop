@@ -21,8 +21,10 @@ namespace WebShop.Pages.Roles
         }
 
         public IdentityRole Role { get; set; }
-        public Task<IList<IdentityUser>> Members() => UserManager.GetUsersInRoleAsync(Role.Name);
-        public async Task<IEnumerable<IdentityUser>> NonMembers() => UserManager.Users.ToList().Except(await Members()); public async Task OnGetAsync(string id) { Role = await RoleManager.FindByIdAsync(id); }
+        public Task<IList<IdentityUser>> Members() 
+            => UserManager.GetUsersInRoleAsync(Role.Name);
+        public async Task<IEnumerable<IdentityUser>> NonMembers() 
+            => UserManager.Users.ToList().Except(await Members()); public async Task OnGetAsync(string id) { Role = await RoleManager.FindByIdAsync(id); }
         public async Task<IActionResult> OnPostAsync(string userid, string rolename) 
         {
             Role = await RoleManager.FindByNameAsync(rolename);

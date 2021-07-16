@@ -10,10 +10,10 @@ using WebShop.Models;
 
 namespace WebShop.Pages.Users
 {
-    public class UserListModel : PageModel
+    public class ListModel : PageModel
     {
         public UserManager<IdentityUser> UserManager;
-        public UserListModel(UserManager<IdentityUser> userManager)
+        public ListModel(UserManager<IdentityUser> userManager)
         {
             UserManager = userManager;
         }

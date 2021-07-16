@@ -1,0 +1,22 @@
+﻿@page
+@model CreateUserModel
+
+<h5 class="bg-primary text-white text-center p-2">Create User</h5>
+<form method="post">
+    <div asp-validation-summary="All" class="text-danger">
+    </div>
+    <div class="form-group">
+        <label>User Name</label>
+        <input class="form-control" asp-for="UserName"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input class="form-control" asp-for="Email" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Password"></label>
+        <input class="form-control" asp-for="Password"/>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a class="btn btn-secondary" asp-page="UserList">Back</a>
+</form>

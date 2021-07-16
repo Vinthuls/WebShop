@@ -24,5 +24,15 @@ namespace WebShop.Pages.Users
         {
             Users = UserManager.Users;
         }
+
+        public async Task<IActionResult> OnPostAsync(string id)
+        {
+            IdentityUser user = await UserManager.FindByIdAsync(id);
+            if (user is not null)
+            {
+                await UserManager.DeleteAsync(user);
+            }
+            return RedirectToPage();
+        }
     }
 }

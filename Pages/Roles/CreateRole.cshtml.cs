@@ -9,11 +9,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebShop.Pages.Roles
 {
-    public class CreateModel : AdminPageModel
+    public class CreateRoleModel : AdminPageModel
     {
         public UserManager<IdentityUser> UserManager { get; set; }
         public RoleManager<IdentityRole> RoleManager { get; set; }
-        public CreateModel(UserManager<IdentityUser> userManager,
+        public CreateRoleModel(UserManager<IdentityUser> userManager,
             RoleManager<IdentityRole> roleManager)
         {
             UserManager = userManager;
@@ -31,7 +31,7 @@ namespace WebShop.Pages.Roles
                 IdentityResult result = await RoleManager.CreateAsync(role); 
                 if (result.Succeeded)
                 { 
-                    return RedirectToPage("List"); 
+                    return RedirectToPage("RoleList"); 
                 } 
                 foreach (IdentityError err in result.Errors) 
                 { 

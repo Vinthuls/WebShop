@@ -1,5 +1,5 @@
-﻿@pag
-e@model ListModel
+﻿@page
+@model RoleListModel
 
 <table class="table table-sm table-bordered">
     <tr>
@@ -25,7 +25,7 @@ e@model ListModel
                 <td class="text-center">
                     <form asp-page="List" method="post">
                         <input type="hidden" name="Id" value="@role.Id" />
-                        <a class="btn btn-sm btn-warning" asp-page="Edit"
+                        <a class="btn btn-sm btn-warning" asp-page="RoleEditor"
                            asp-route-id="@role.Id" asp-route-mode="edit">Edit</a>
                         <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                     </form>
@@ -34,4 +34,4 @@ e@model ListModel
         }
     }
 </table>
-<a class="btn btn-primary" asp-page="create">Create</a>
+<a class="btn btn-primary" asp-page="CreateRole">Create</a>

@@ -9,11 +9,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebShop.Pages.Roles
 {
-    public class ListModel : AdminPageModel
+    public class RoleListModel : AdminPageModel
     {
         public UserManager<IdentityUser> UserManager { get; set; }
         public RoleManager<IdentityRole> RoleManager { get; set; }
-        public ListModel(UserManager<IdentityUser> userManager, 
+        public RoleListModel(UserManager<IdentityUser> userManager, 
             RoleManager<IdentityRole> roleManager)
         {
             UserManager = userManager;

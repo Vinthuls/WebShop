@@ -1,5 +1,6 @@
 ﻿@page "{id}"
-@model EditorModel
+@model RoleEditorModel
+
 <h5 class="bg-primary text-white text-center p-2">Edit Role: @Model.Role.Name</h5>
 <form method="post">
     <input type="hidden" name="rolename" value="@Model.Role.Name" />
@@ -45,24 +46,24 @@
             </tr>
         </thead>
         <tbody>
-        @if ((await Model.NonMembers()).Count() == 0)
-        {
-            <tr><td colspan="3" class="text-center">No non-members</td></tr>
-        }
-        @foreach (IdentityUser user in await Model.NonMembers())
-        {
-            <tr>
-                <td>@user.UserName</td>
-                <td>@user.Email</td>
-                <td>
-                    <button asp-route-userid="@user.Id" class="btn btn-primary btn-sm"
-                            type="submit">
-                        Change
-                    </button>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+            @if ((await Model.NonMembers()).Count() == 0)
+            {
+                <tr><td colspan="3" class="text-center">No non-members</td></tr>
+            }
+            @foreach (IdentityUser user in await Model.NonMembers())
+            {
+                <tr>
+                    <td>@user.UserName</td>
+                    <td>@user.Email</td>
+                    <td>
+                        <button asp-route-userid="@user.Id" class="btn btn-primary btn-sm"
+                                type="submit">
+                            Change
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </form>
-<a class="btn btn-secondary" asp-page="list">Back</a>
+<a class="btn btn-secondary" asp-page="RoleList">Back</a>

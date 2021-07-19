@@ -5,22 +5,20 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebShop.Pages.Users
 {
-    public class EditModel : AdminPageModel
+    public class CreateUserModel : AdminPageModel
     {
-        public UserManager<IdentityUser> UserManager;
-        public EditModel(UserManager<IdentityUser> userManager)
+        public UserManager<IdentityUser> UserManager { get; set; }
+        public CreateUserModel(UserManager<IdentityUser> userManager)
         {
             UserManager = userManager;
         }
 
         [BindProperty][Required]
-        public string Id { get; set; }
-
-        [BindProperty] [Required]
         public string UserName { get; set; }
 
         [BindProperty][Required][EmailAddress]
@@ -28,30 +26,15 @@ namespace WebShop.Pages.Users
 
         [BindProperty][Required]
         public string Password { get; set; }
-
-        public async Task OnGetAsync(string id)
-        {
-            IdentityUser user = await UserManager.FindByIdAsync(id);
-            Id = user.Id;
-            UserName = user.UserName;
-            Email = user.Email;
-        }
-
-        public async Task<IActionResult> OnPostAsync()
+        
+        public async Task<IActionResult> OnPost()
         {
             if(ModelState.IsValid)
             {
-                IdentityUser user = await UserManager.FindByIdAsync(Id);
-                user.UserName = UserName;
-                user.Email = Email;
+                IdentityUser user =
+                    new IdentityUser { UserName = UserName, Email = Email };
                 IdentityResult result =
-                    await UserManager.UpdateAsync(user);
-
-                if(result.Succeeded && !string.IsNullOrEmpty(Password))
-                {
-                    await UserManager.RemovePasswordAsync(user);
-                    result = await UserManager.AddPasswordAsync(user, Password);
-                }
+                    await UserManager.CreateAsync(user, Password);
                 if(result.Succeeded)
                 {
                     return RedirectToPage("UserList");

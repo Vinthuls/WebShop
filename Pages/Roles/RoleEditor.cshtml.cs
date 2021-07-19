@@ -9,11 +9,11 @@ using Microsoft.AspNetCore.Identity;
 
 namespace WebShop.Pages.Roles
 {
-    public class EditorModel : AdminPageModel
+    public class RoleEditorModel : AdminPageModel
     {
         public UserManager<IdentityUser> UserManager { get; set; }
         public RoleManager<IdentityRole> RoleManager { get; set; }
-        public EditorModel(UserManager<IdentityUser> userManager,
+        public RoleEditorModel(UserManager<IdentityUser> userManager,
             RoleManager<IdentityRole> roleManager)
         {
             UserManager = userManager;

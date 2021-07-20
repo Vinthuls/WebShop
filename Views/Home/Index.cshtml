@@ -36,6 +36,8 @@
                            asp-route-id="@p.ProductId" role="button">Update</a>
                         <a class="btn btn-outline-danger" asp-action="Delete" asp-controller="Form"
                            asp-route-id="@p.ProductId" role="button">Delete</a>
+                        <a class="btn btn-outline-success" asp-action="Add" asp-controller="Cart"
+                           asp-route-id="@p.ProductId" role="button">Add to cart.</a>
                     </td>
                 </tr>
             }

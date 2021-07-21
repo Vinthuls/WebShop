@@ -3,12 +3,10 @@
     //Layout = "_Layout";
     ViewData["Title"] = "Home Page";
 }
-
-<div>   
-    <vc:navigation-bar />
-</div>
-<div class="m-2 table-responsive">
+<div>
     <h4 class="bg-dark text-white text-center p-2">Products list</h4>
+</div>
+<div>
     <table class="table table-sm table-bordered table-striped align-middle">
         <thead>
             <tr>
@@ -44,7 +42,7 @@
         </tbody>
     </table>
     <div>
-        <a class="btn btn-outline-primary" asp-action="Create" 
+        <a class="btn btn-outline-primary" asp-action="Create"
            asp-controller="Form" role="button">Create</a>
     </div>
 </div>

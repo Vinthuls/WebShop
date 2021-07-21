@@ -6,10 +6,13 @@
     <title>@ViewData["Title"] - WebShop</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <partial name="_ValidationScriptsPartial"/>
 </head>
 <body>
-    @RenderBody()
-
+    <div>
+        <vc:navigation-bar />
+    </div>
+    <div class="m-2">@RenderBody()</div>
     <footer>
         <p>Here should appear cookie's consent.</p>
     </footer>

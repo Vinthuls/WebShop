@@ -1,7 +1,15 @@
 ﻿@model ShoppingCart
-
+@{ 
+    ViewBag.Data = Model.CartItems.Sum(ci => ci.Product.Price * ci.Quantity);
+}
 <div class="m-2 table-responsive">
-    <h4 class="bg-dark text-white text-center p-2">Products list</h4>
+    <h4 class="bg-dark text-white text-center p-2">Shopping Cart</h4>
+    @if (null == Model || 0 == Model.CartItems.Count())
+    {
+        <h3 class="text-center">Your cart is empty.</h3>
+    }
+    else
+    {
     <table class="table table-sm table-bordered table-striped align-middle">
         <thead>
             <tr>
@@ -15,17 +23,26 @@
         <tbody>
             @foreach (var CartItem in Model.CartItems)
             {
-                <tr>
-                    <td>@CartItem.Product.ProductId</td>
-                    <td>@CartItem.Product.Name</td>
-                    <td>@CartItem.Product.Price</td>
-                    <td>@CartItem.Quantity</td>
-                </tr>
+            <tr>
+                <td>@CartItem.Product.ProductId</td>
+                <td>@CartItem.Product.Name</td>
+                <td>@CartItem.Product.Price</td>
+                <td>@CartItem.Quantity</td>
+                <td>
+                    <a class="btn btn-outline-success" asp-action="Remove" asp-controller="Cart"
+                       asp-route-id="@CartItem.Product.ProductId" role="button">Remove product.</a>
+                </td>
+            </tr>
             }
+            <tr>
+                <td>Total Price:</td>
+                <td colspan="4">@ViewBag.Data</td>
+            </tr>
         </tbody>
     </table>
+    }
     <div>
         <a class="btn btn-outline-primary" asp-action="Index"
-           asp-controller="Home" role="button">Back</a>
+           asp-controller="Home" role="button">Continue shopping.</a>
     </div>
 </div>

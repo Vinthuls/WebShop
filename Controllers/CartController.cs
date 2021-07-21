@@ -11,13 +11,15 @@ namespace WebShop.Controllers
 {
     public class CartController : Controller
     {
-        public ShoppingCart ShoppingCart;
         public DataContext DataContext;
         
         public CartController(DataContext dataContext)
         {
             DataContext = dataContext;
         }
+
+        public ShoppingCart ShoppingCart;
+
         public IActionResult Index()
         {
             ShoppingCart = MySessionExtensions.Get<ShoppingCart>(HttpContext.Session, "cart");
@@ -26,31 +28,57 @@ namespace WebShop.Controllers
         public async Task<IActionResult> Add(long id)
         {
             Product p = await DataContext.Products.FindAsync(id);
-            var cart = MySessionExtensions.Get<ShoppingCart>(HttpContext.Session, "cart");
-            if(null == cart) 
+            ShoppingCart = MySessionExtensions.Get<ShoppingCart>(HttpContext.Session, "cart");
+            if(null == ShoppingCart) 
             {
-
                 ShoppingCart = new ShoppingCart();
                 ShoppingCart.CartItems.Add(new CartItem { Product = p, Quantity = 1 });
                 MySessionExtensions.Set(HttpContext.Session, "cart", ShoppingCart);
-                return RedirectToAction(nameof(Index));
+                return View("~/Views/Cart/Index.cshtml", ShoppingCart);
             }
             else 
             {
-                ShoppingCart = cart;
-            }
-            for(int i = 0; i < ShoppingCart.CartItems.Count(); i++)
-            {
-                if (ShoppingCart.CartItems[i].Product.ProductId == p.ProductId)
+                if (checkIfExists(p.ProductId, out int index))
                 {
-                    ShoppingCart.CartItems[i].Quantity++;
-                    MySessionExtensions.Set(HttpContext.Session, "cart", ShoppingCart);
-                    return RedirectToAction(nameof(Index));
+                    ShoppingCart.CartItems[index].Quantity++;
+                }
+                else
+                {
+                    ShoppingCart.CartItems.Add(new CartItem { Product = p, Quantity = 1 });
+                }
+                MySessionExtensions.Set(HttpContext.Session, "cart", ShoppingCart);
+                return View("~/Views/Cart/Index.cshtml", ShoppingCart);
+            }
+        }
+
+        public IActionResult Remove(long id)
+        {
+            ShoppingCart = MySessionExtensions.Get<ShoppingCart>(HttpContext.Session, "cart");
+            if (checkIfExists(id, out int index) && ShoppingCart.CartItems[index].Quantity > 1)
+            {
+                ShoppingCart.CartItems[index].Quantity--;
+            }
+            else
+            {
+                ShoppingCart.CartItems.RemoveAll(ci => ci.Product.ProductId == id);
+            }
+
+            MySessionExtensions.Set(HttpContext.Session, "cart", ShoppingCart);
+            return View("~/Views/Cart/Index.cshtml", ShoppingCart);
+        }
+        
+        private bool checkIfExists(long id, out int index)
+        {
+            for (int i = 0; i < ShoppingCart.CartItems.Count(); i++)
+            {
+                if(ShoppingCart.CartItems[i].Product.ProductId ==  id)
+                {
+                    index = i;
+                    return true;
                 }
             }
-            ShoppingCart.CartItems.Add(new CartItem { Product = p, Quantity = 1 });
-            MySessionExtensions.Set(HttpContext.Session, "cart", ShoppingCart);
-            return RedirectToAction(nameof(Index));
+            index = -1;
+            return false;
         }
     }
 }

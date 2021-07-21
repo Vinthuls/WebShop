@@ -7,7 +7,7 @@ namespace WebShop.Models
 {
     public class ShoppingCart
     {
-        public int OrderId { get; set; }
+        public Guid OrderId { get; } = new Guid();
         public List<CartItem> CartItems { get; set; } = new List<CartItem>();
     }
 

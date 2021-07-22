@@ -12,9 +12,7 @@ namespace WebShop.TagHelpers
     [HtmlTargetElement("div", Attributes = "current-page, total-pages")]
     public class PaginationTagHelper : TagHelper
     {
-        public ModelExpression TotalItems { get; set; }
         public ModelExpression CurrentPage { get; set; }
-        public ModelExpression ItemsPerPage { get; set; }
         public ModelExpression TotalPages { get; set; }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {

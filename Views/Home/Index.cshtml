@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Product>
+﻿@model ProductPaging
 @{
     //Layout = "_Layout";
     ViewData["Title"] = "Home Page";
@@ -19,7 +19,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var p in Model)
+            @foreach (var p in Model.Products)
             {
                 <tr>
                     <td>@p.ProductId</td>
@@ -41,6 +41,9 @@
             }
         </tbody>
     </table>
+    <div total-items="PaginationInfo.TotalItems" current-page="PaginationInfo.CurrentPage" 
+         items-per-page="PaginationInfo.ItemsPerPage" total-pages="PaginationInfo.TotalPages">
+        </div>
     <div>
         <a class="btn btn-outline-primary" asp-action="Create"
            asp-controller="Form" role="button">Create</a>

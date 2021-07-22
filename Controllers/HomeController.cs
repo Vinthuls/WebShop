@@ -13,18 +13,27 @@ namespace WebShop.Controllers
     public class HomeController : Controller
     {      
         private DataContext _dataContext;
+        private int itemsPerPage = 4;
         public HomeController(DataContext dataContext)
         {
             _dataContext = dataContext;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int id = 1)
         {
-            IEnumerable<Product> products
-                = _dataContext.Products
+            return View(new ProductPaging() {
+                Products = _dataContext.Products
                     .Include(p => p.Category)
-                    .Include(p => p.Supplier);
-            return View(products);
+                    .Include(p => p.Supplier)
+                    .Skip((id - 1) * itemsPerPage)
+                    .Take(itemsPerPage),
+                PaginationInfo = new PaginationInfo()
+                {
+                    TotalItems = _dataContext.Products.Count(),
+                    CurrentPage = id,
+                    ItemsPerPage = itemsPerPage
+                }
+            });
         }
 
         public IActionResult SelectCategory(long id)

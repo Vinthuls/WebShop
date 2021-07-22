@@ -13,47 +13,78 @@ namespace WebShop.Controllers
     public class HomeController : Controller
     {      
         private DataContext _dataContext;
-        private int itemsPerPage = 4;
+        private int itemsPerPage = 2;
         public HomeController(DataContext dataContext)
         {
             _dataContext = dataContext;
         }
 
-        public IActionResult Index(int id = 1)
+        public IActionResult Index(int currentPage = 1)
         {
-            return View(new ProductPaging() {
-                Products = _dataContext.Products
+            IEnumerable<Product> products = _dataContext.Products
                     .Include(p => p.Category)
                     .Include(p => p.Supplier)
-                    .Skip((id - 1) * itemsPerPage)
-                    .Take(itemsPerPage),
+                    .Skip((currentPage - 1) * itemsPerPage)
+                    .Take(itemsPerPage);
+            return View(new ProductPaging() {
+                Products = products,
                 PaginationInfo = new PaginationInfo()
                 {
                     TotalItems = _dataContext.Products.Count(),
-                    CurrentPage = id,
+                    CurrentPage = currentPage,
                     ItemsPerPage = itemsPerPage
                 }
             });
         }
 
-        public IActionResult SelectCategory(long id)
+        public IActionResult SelectCategory(long id, int currentPage = 1)
         {
             IEnumerable<Product> products 
                 =  _dataContext.Products
                     .Include(p => p.Category)
                     .Include(p => p.Supplier)
-                    .Where(p => p.CategoryId == id);
-            return View("Index", products);
+                    .Where(p => p.CategoryId == id)
+                    .Skip((currentPage - 1) * itemsPerPage)
+                    .Take(itemsPerPage);
+            return View("Index", new ProductPaging()
+            {
+                Products = products,
+                PaginationInfo = new PaginationInfo()
+                {
+                    TotalItems = _dataContext.Products
+                                    .Include(p => p.Category)
+                                    .Include(p => p.Supplier)
+                                    .Where(p => p.CategoryId == id)
+                                    .Count(),
+                    CurrentPage = currentPage,
+                    ItemsPerPage = itemsPerPage
+                }
+            });
         }
 
-        public IActionResult SearchProduct(string name)
+        public IActionResult SearchProduct(string name , int currentPage = 1)
         {
             IEnumerable<Product> products
                 = _dataContext.Products
                     .Include(p => p.Category)
                     .Include(p => p.Supplier)
-                    .Where(p => p.Name.Contains(name));
-            return View("Index", products);
+                    .Where(p => p.Name.Contains(name))
+                    .Skip((currentPage - 1) * itemsPerPage)
+                    .Take(itemsPerPage);
+            return View("Index", new ProductPaging()
+            {
+                Products = products,
+                PaginationInfo = new PaginationInfo()
+                {
+                    TotalItems = _dataContext.Products
+                                    .Include(p => p.Category)
+                                    .Include(p => p.Supplier)
+                                    .Where(p => p.Name.Contains(name))
+                                    .Count(),
+                    CurrentPage = currentPage,
+                    ItemsPerPage = itemsPerPage
+                }
+            });
         }
         public IActionResult Privacy()
         {

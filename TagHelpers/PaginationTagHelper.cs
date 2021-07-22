@@ -29,7 +29,7 @@ namespace WebShop.TagHelpers
                 TagBuilder listElement = new TagBuilder("li");
 
                 TagBuilder anchor = new TagBuilder("a");
-                anchor.Attributes["href"] = $"/Home/Index/{i}";
+                anchor.Attributes["href"] = $"/Page/{i}";
                 anchor.Attributes["class"] = "page-link";
                 anchor.InnerHtml.Append($"{i}");
                 if((int)CurrentPage.Model == i)

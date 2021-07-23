@@ -1,6 +1,6 @@
 ﻿@model ShoppingCart
 @{ 
-    ViewBag.Data = Model.CartItems.Sum(ci => ci.Product.Price * ci.Quantity);
+    
 }
 <div class="m-2 table-responsive">
     <h4 class="bg-dark text-white text-center p-2">Shopping Cart</h4>
@@ -33,11 +33,11 @@
                            asp-route-id="@CartItem.Product.ProductId" role="button">Remove product.</a>
                     </td>
                 </tr>
-                <tr>
-                    <td>Total Price:</td>
-                    <td colspan="4">@ViewBag.Data.ToString("c")</td>
-                </tr>
             }
+            <tr>
+                <td>Total Price:</td>
+                <td colspan="4">@Model.CartItems.Sum(ci => ci.Product.Price * ci.Quantity).ToString("c")</td>
+            </tr>
         </tbody>
     </table>
     }

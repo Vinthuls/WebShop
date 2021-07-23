@@ -9,7 +9,7 @@ using WebShop.Models;
 
 namespace WebShop.TagHelpers
 {
-    [HtmlTargetElement("div", Attributes = "current-page, total-pages")]
+    [HtmlTargetElement("div", Attributes = "current-page, total-pages, path-value")]
     public class PaginationTagHelper : TagHelper
     {
         public ModelExpression CurrentPage { get; set; }

@@ -23,21 +23,21 @@
         <tbody>
             @foreach (var CartItem in Model.CartItems)
             {
-            <tr>
-                <td>@CartItem.Product.ProductId</td>
-                <td>@CartItem.Product.Name</td>
-                <td>@CartItem.Product.Price</td>
-                <td>@CartItem.Quantity</td>
-                <td>
-                    <a class="btn btn-outline-success" asp-action="Remove" asp-controller="Cart"
-                       asp-route-id="@CartItem.Product.ProductId" role="button">Remove product.</a>
-                </td>
-            </tr>
+                <tr>
+                    <td>@CartItem.Product.ProductId</td>
+                    <td>@CartItem.Product.Name</td>
+                    <td>@CartItem.Product.Price</td>
+                    <td>@CartItem.Quantity</td>
+                    <td>
+                        <a class="btn btn-outline-success" asp-action="Remove" asp-controller="Cart"
+                           asp-route-id="@CartItem.Product.ProductId" role="button">Remove product.</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Total Price:</td>
+                    <td colspan="4">@ViewBag.Data.ToString("c")</td>
+                </tr>
             }
-            <tr>
-                <td>Total Price:</td>
-                <td colspan="4">@ViewBag.Data.ToString("c")</td>
-            </tr>
         </tbody>
     </table>
     }

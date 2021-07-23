@@ -14,6 +14,7 @@ namespace WebShop.TagHelpers
     {
         public ModelExpression CurrentPage { get; set; }
         public ModelExpression TotalPages { get; set; }
+        public object PathValue { get; set; }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             output.TagName = "div";
@@ -29,7 +30,9 @@ namespace WebShop.TagHelpers
                 TagBuilder listElement = new TagBuilder("li");
 
                 TagBuilder anchor = new TagBuilder("a");
-                anchor.Attributes["href"] = $"/Page/{i}";
+                anchor.Attributes["href"] = (PathValue as int?) <= -1
+                                            ? $"/Page/{i}"
+                                            : $"/Page/{i}/{PathValue}";
                 anchor.Attributes["class"] = "page-link";
                 anchor.InnerHtml.Append($"{i}");
                 if((int)CurrentPage.Model == i)

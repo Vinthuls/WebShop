@@ -41,8 +41,9 @@
             }
         </tbody>
     </table>
-    <div current-page="PaginationInfo.CurrentPage"
-         total-pages="PaginationInfo.TotalPages">
+    <div path-value="@(ViewBag.CurrentCategoryId ?? (ViewBag.Search ?? -1))" 
+         current-page="PaginationInfo.CurrentPage"
+         total-pages="PaginationInfo.TotalPages" >
     </div>
     <div>
         <a class="btn btn-outline-primary" asp-action="Create"

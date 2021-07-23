@@ -88,8 +88,16 @@ namespace WebShop
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "pagination",
-                    pattern: "Page/{currentPage}",
-                    defaults: new { controller = "Home", action = "Index" });
+                    pattern: "Page/{currentPage:int=1}",
+                    defaults: new { controller = "Home", Action = "Index"});
+                endpoints.MapControllerRoute(
+                    name: "categoryPagination",
+                    pattern: "Page/{currentPage:int=1}/{currentCategoryId:long}",
+                    defaults: new { controller = "Home", Action = "SelectCategory" });
+                endpoints.MapControllerRoute(
+                    name: "search",
+                    pattern: "Page/{currentPage:int=1}/{name}",
+                    defaults: new { controller = "Home", Action = "SearchProduct" });
                 endpoints.MapRazorPages();
             });
 

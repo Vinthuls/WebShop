@@ -36,7 +36,8 @@
             }
             <tr>
                 <td>Total Price:</td>
-                <td colspan="4">@Model.CartItems.Sum(ci => ci.Product.Price * ci.Quantity).ToString("c")</td>
+                <td colspan="4">@Model.CartItems.Sum(ci => 
+                           ci.Product.Price * ci.Quantity).ToString("c")</td>
             </tr>
         </tbody>
     </table>

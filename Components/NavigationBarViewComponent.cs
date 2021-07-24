@@ -19,15 +19,9 @@ namespace WebShop.Components
         public IViewComponentResult Invoke()
         {
             ShoppingCart cart = MySessionExtensions.Get<ShoppingCart>(HttpContext.Session, "cart");
-            int itemsCount = 0;
-            string totalPrice = "";
-            if (null != cart)
-            {
-                itemsCount = cart.CartItems.Sum(ci => ci.Quantity);
-                totalPrice = cart.CartItems.Sum(ci => ci.Product.Price * ci.Quantity).ToString("c");
-            }
-            ViewBag.itemsCount = itemsCount;
-            ViewBag.totalPrice = totalPrice;
+            ViewBag.itemsCount = cart?.CartItems.Sum(ci => ci.Quantity) ?? 0;
+            ViewBag.totalPrice = cart?.CartItems.Sum(ci => 
+                ci.Product.Price * ci.Quantity).ToString("c") ?? "";
 
             return View(context.Products
                 .Select(c => c.Category)

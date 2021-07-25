@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
-
+using WebShop.Models;
 namespace WebShop.Pages.Account
 {
     public class LoginModel : PageModel
     {
-        public SignInManager<IdentityUser> SignInManager { get; set; }
-        public LoginModel(SignInManager<IdentityUser> signInManager)
+        public SignInManager<MyUser> SignInManager { get; set; }
+        public LoginModel(SignInManager<MyUser> signInManager)
         {
             SignInManager = signInManager;
         }

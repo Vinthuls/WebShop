@@ -6,21 +6,21 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
-
+using WebShop.Models;
 namespace WebShop.Pages.Roles
 {
     public class RoleListModel : AdminPageModel
     {
-        public UserManager<IdentityUser> UserManager { get; set; }
+        public UserManager<MyUser> UserManager { get; set; }
         public RoleManager<IdentityRole> RoleManager { get; set; }
-        public RoleListModel(UserManager<IdentityUser> userManager, 
+        public RoleListModel(UserManager<MyUser> userManager, 
             RoleManager<IdentityRole> roleManager)
         {
             UserManager = userManager;
             RoleManager = roleManager;
         }
 
-        public IEnumerable<IdentityUser> Users { get; set; }
+        public IEnumerable<MyUser> Users { get; set; }
         public IEnumerable<IdentityRole> Roles { get; set; }
         public void OnGet()
         {
@@ -37,7 +37,7 @@ namespace WebShop.Pages.Roles
 
         public async Task<string> GetMembersString(string role)
         {
-            IEnumerable<IdentityUser> users
+            IEnumerable<MyUser> users
                 = await UserManager.GetUsersInRoleAsync(role);
             string result = users.Count() == 0
                 ? "No members"

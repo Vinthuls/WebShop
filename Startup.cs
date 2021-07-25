@@ -39,7 +39,7 @@ namespace WebShop
                 opts.UseSqlServer(Configuration[
                     "ConnectionStrings:IdentityConnection"]);
             });
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<MyUser, IdentityRole>()
                 .AddEntityFrameworkStores<IdentityContext>();
 
             services.Configure<IdentityOptions>(opts =>

@@ -21,8 +21,8 @@ namespace WebShop.Models
         {
             serviceProvider = serviceProvider.CreateScope().ServiceProvider; 
 
-            UserManager<IdentityUser> userManager 
-                = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+            UserManager<MyUser> userManager 
+                = serviceProvider.GetRequiredService<UserManager<MyUser>>();
 
             RoleManager<IdentityRole> roleManager 
                 = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>(); 
@@ -39,7 +39,7 @@ namespace WebShop.Models
                     await roleManager.CreateAsync(new IdentityRole(role)); 
                 } 
 
-                IdentityUser user = new IdentityUser { UserName = username, Email = email };
+                MyUser user = new MyUser { UserName = username, Email = email };
 
                 IdentityResult result = await userManager.CreateAsync(user, password);
 

@@ -7,13 +7,14 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using System.ComponentModel.DataAnnotations;
+using WebShop.Models;
 
 namespace WebShop.Pages.Users
 {
     public class CreateUserModel : AdminPageModel
     {
-        public UserManager<IdentityUser> UserManager { get; set; }
-        public CreateUserModel(UserManager<IdentityUser> userManager)
+        public UserManager<MyUser> UserManager { get; set; }
+        public CreateUserModel(UserManager<MyUser> userManager)
         {
             UserManager = userManager;
         }
@@ -31,8 +32,8 @@ namespace WebShop.Pages.Users
         {
             if(ModelState.IsValid)
             {
-                IdentityUser user =
-                    new IdentityUser { UserName = UserName, Email = Email };
+                MyUser user =
+                    new MyUser { UserName = UserName, Email = Email };
                 IdentityResult result =
                     await UserManager.CreateAsync(user, Password);
                 if(result.Succeeded)

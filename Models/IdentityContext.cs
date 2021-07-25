@@ -8,9 +8,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WebShop.Models
 {
-    public class IdentityContext : IdentityDbContext<IdentityUser>
+    public class IdentityContext : IdentityDbContext<MyUser>
     {
-
         public IdentityContext(DbContextOptions<IdentityContext> options)
             : base(options) { }
     }

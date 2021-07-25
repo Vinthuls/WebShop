@@ -6,14 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
-
+using WebShop.Models;
 namespace WebShop.Pages.Roles
 {
     public class RoleEditorModel : AdminPageModel
     {
-        public UserManager<IdentityUser> UserManager { get; set; }
+        public UserManager<MyUser> UserManager { get; set; }
         public RoleManager<IdentityRole> RoleManager { get; set; }
-        public RoleEditorModel(UserManager<IdentityUser> userManager,
+        public RoleEditorModel(UserManager<MyUser> userManager,
             RoleManager<IdentityRole> roleManager)
         {
             UserManager = userManager;
@@ -21,9 +21,9 @@ namespace WebShop.Pages.Roles
         }
 
         public IdentityRole Role { get; set; }
-        public Task<IList<IdentityUser>> Members() 
+        public Task<IList<MyUser>> Members() 
             => UserManager.GetUsersInRoleAsync(Role.Name);
-        public async Task<IEnumerable<IdentityUser>> NonMembers() 
+        public async Task<IEnumerable<MyUser>> NonMembers() 
             => UserManager.Users.ToList().Except(await Members());
         public async Task OnGetAsync(string id) 
         { 
@@ -32,7 +32,7 @@ namespace WebShop.Pages.Roles
         public async Task<IActionResult> OnPostAsync(string userid, string rolename) 
         {
             Role = await RoleManager.FindByNameAsync(rolename);
-            IdentityUser user = await UserManager.FindByIdAsync(userid);
+            MyUser user = await UserManager.FindByIdAsync(userid);
             IdentityResult result; 
 
             if (await UserManager.IsInRoleAsync(user, rolename)) 

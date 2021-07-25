@@ -5,15 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Identity;
+using WebShop.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebShop.Pages.Roles
 {
     public class CreateRoleModel : AdminPageModel
     {
-        public UserManager<IdentityUser> UserManager { get; set; }
+        public UserManager<MyUser> UserManager { get; set; }
         public RoleManager<IdentityRole> RoleManager { get; set; }
-        public CreateRoleModel(UserManager<IdentityUser> userManager,
+        public CreateRoleModel(UserManager<MyUser> userManager,
             RoleManager<IdentityRole> roleManager)
         {
             UserManager = userManager;

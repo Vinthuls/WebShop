@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
-
+using WebShop.Models;
 namespace WebShop.Pages.Account
 {
     public class RegisterModel : PageModel
     {
-        public UserManager<IdentityUser> UserManager;
-        public RegisterModel(UserManager<IdentityUser> userManager)
+        public UserManager<MyUser> UserManager;
+        public RegisterModel(UserManager<MyUser> userManager)
         {
             UserManager = userManager;
         }
@@ -30,7 +30,7 @@ namespace WebShop.Pages.Account
         {
             if(ModelState.IsValid)
             {
-                IdentityUser user = new IdentityUser() { UserName = UserName, Email = Email };
+                MyUser user = new MyUser() { UserName = UserName, Email = Email };
                 IdentityResult result = await UserManager.CreateAsync(user, Password);
                 if (result.Succeeded)
                 {

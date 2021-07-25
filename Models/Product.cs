@@ -12,6 +12,9 @@ namespace WebShop.Models
         public long ProductId { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
+        public long Quantity { get; set; }
+        public IEnumerable<Theme> Themes { get; set; }
+        public IEnumerable<Size> Sizes { get; set; }
         public long SupplierId { get; set; }
         public Supplier Supplier { get; set; }
         public long CategoryId { get; set; }

@@ -21,7 +21,7 @@
                     <td colspan="3" class="text-center">No members</td>
                 </tr>
             }
-            @foreach (IdentityUser user in await Model.Members())
+            @foreach (MyUser user in await Model.Members())
             {
                 <tr>
                     <td>@user.UserName</td>
@@ -50,7 +50,7 @@
             {
                 <tr><td colspan="3" class="text-center">No non-members</td></tr>
             }
-            @foreach (IdentityUser user in await Model.NonMembers())
+            @foreach (MyUser user in await Model.NonMembers())
             {
                 <tr>
                     <td>@user.UserName</td>

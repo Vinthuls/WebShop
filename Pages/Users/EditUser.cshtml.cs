@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
-
+using WebShop.Models;
 namespace WebShop.Pages.Users
 {
     public class EditUserModel : AdminPageModel
     {
-        public UserManager<IdentityUser> UserManager;
-        public EditUserModel(UserManager<IdentityUser> userManager)
+        public UserManager<MyUser> UserManager;
+        public EditUserModel(UserManager<MyUser> userManager)
         {
             UserManager = userManager;
         }
@@ -31,7 +31,7 @@ namespace WebShop.Pages.Users
 
         public async Task OnGetAsync(string id)
         {
-            IdentityUser user = await UserManager.FindByIdAsync(id);
+            MyUser user = await UserManager.FindByIdAsync(id);
             Id = user.Id;
             UserName = user.UserName;
             Email = user.Email;
@@ -41,7 +41,7 @@ namespace WebShop.Pages.Users
         {
             if(ModelState.IsValid)
             {
-                IdentityUser user = await UserManager.FindByIdAsync(Id);
+                MyUser user = await UserManager.FindByIdAsync(Id);
                 user.UserName = UserName;
                 user.Email = Email;
                 IdentityResult result =

@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
-
+using WebShop.Models;
 namespace WebShop.Pages.Account
 {
     public class LogoutModel : PageModel
     {
-        private SignInManager<IdentityUser> signInManager; 
-        public LogoutModel(SignInManager<IdentityUser> signInMgr) 
+        private SignInManager<MyUser> signInManager; 
+        public LogoutModel(SignInManager<MyUser> signInMgr) 
         {
             signInManager = signInMgr; 
         }

@@ -12,13 +12,13 @@ namespace WebShop.Pages.Users
 {
     public class UserListModel : AdminPageModel
     {
-        public UserManager<IdentityUser> UserManager;
-        public UserListModel(UserManager<IdentityUser> userManager)
+        public UserManager<MyUser> UserManager;
+        public UserListModel(UserManager<MyUser> userManager)
         {
             UserManager = userManager;
         }
 
-        public IEnumerable<IdentityUser> Users { get; set; }
+        public IEnumerable<MyUser> Users { get; set; }
 
         public void OnGet()
         {
@@ -27,7 +27,7 @@ namespace WebShop.Pages.Users
 
         public async Task<IActionResult> OnPostAsync(string id)
         {
-            IdentityUser user = await UserManager.FindByIdAsync(id);
+            MyUser user = await UserManager.FindByIdAsync(id);
             if (user is not null)
             {
                 await UserManager.DeleteAsync(user);

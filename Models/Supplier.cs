@@ -18,7 +18,7 @@ namespace WebShop.Models
 
         [Required][Display(Name = "Supplier city")]
         [MaxLength(20, ErrorMessage = "Supplier city must not exeed 20 characters."),]
-        //[Column(TypeName = "varchar(20)")]
+        [Column(TypeName = "varchar(20)")]
         public string City { get; set; }
         public IEnumerable<Product> Products { get; set; }
 

@@ -12,21 +12,5 @@ namespace WebShop.Models
     {
         public IdentityContext(DbContextOptions<IdentityContext> options)
             : base(options) { }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<OrderItem>()
-            .HasKey(oi => new { oi.OrderId, oi.ProductId });
-
-            modelBuilder.Entity<OrderItem>()
-                .HasOne(oi => oi.Order)
-                .WithMany(o => o.OrderItems)
-                .HasForeignKey(oi => oi.OrderId);
-
-            modelBuilder.Entity<OrderItem>()
-                .HasOne(oi => oi.Product)
-                .WithMany(p => p.OrderItems)
-                .HasForeignKey(oi => oi.ProductId);
-        }
     }
 }

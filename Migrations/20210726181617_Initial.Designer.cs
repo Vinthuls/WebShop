@@ -10,7 +10,7 @@ using WebShop.Models;
 namespace WebShop.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210726114327_Initial")]
+    [Migration("20210726181617_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,7 +29,9 @@ namespace WebShop.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.HasKey("CategoryId");
 
@@ -39,13 +41,17 @@ namespace WebShop.Migrations
             modelBuilder.Entity("WebShop.Models.Order", b =>
                 {
                     b.Property<Guid>("OrderId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("MyUserId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("TotalPrice")
-                        .HasColumnType("bigint");
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("OrderId");
 
@@ -63,8 +69,8 @@ namespace WebShop.Migrations
                     b.Property<decimal>("ProductPrice")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<long>("Quantity")
-                        .HasColumnType("bigint");
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("OrderId", "ProductId");
 
@@ -84,13 +90,15 @@ namespace WebShop.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<long>("Quantity")
-                        .HasColumnType("bigint");
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<long>("SupplierId")
                         .HasColumnType("bigint");
@@ -104,26 +112,6 @@ namespace WebShop.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("WebShop.Models.Size", b =>
-                {
-                    b.Property<long>("SizeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long>("ProductId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("SizeNumber")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("SizeId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("Sizes");
-                });
-
             modelBuilder.Entity("WebShop.Models.Supplier", b =>
                 {
                     b.Property<long>("SupplierId")
@@ -132,10 +120,14 @@ namespace WebShop.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.HasKey("SupplierId");
 
@@ -150,10 +142,13 @@ namespace WebShop.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<byte[]>("Image")
+                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<long>("ProductId")
                         .HasColumnType("bigint");
@@ -203,17 +198,6 @@ namespace WebShop.Migrations
                     b.Navigation("Supplier");
                 });
 
-            modelBuilder.Entity("WebShop.Models.Size", b =>
-                {
-                    b.HasOne("WebShop.Models.Product", "Product")
-                        .WithMany("Sizes")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("WebShop.Models.Theme", b =>
                 {
                     b.HasOne("WebShop.Models.Product", "Product")
@@ -238,8 +222,6 @@ namespace WebShop.Migrations
             modelBuilder.Entity("WebShop.Models.Product", b =>
                 {
                     b.Navigation("OrderItems");
-
-                    b.Navigation("Sizes");
 
                     b.Navigation("Themes");
                 });

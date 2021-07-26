@@ -13,7 +13,7 @@ namespace WebShop.Migrations
                 {
                     CategoryId = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -25,8 +25,9 @@ namespace WebShop.Migrations
                 columns: table => new
                 {
                     OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    MyUserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TotalPrice = table.Column<long>(type: "bigint", nullable: false)
+                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -39,8 +40,8 @@ namespace WebShop.Migrations
                 {
                     SupplierId = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false),
+                    City = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -53,9 +54,9 @@ namespace WebShop.Migrations
                 {
                     ProductId = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Quantity = table.Column<long>(type: "bigint", nullable: false),
+                    Quantity = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     SupplierId = table.Column<long>(type: "bigint", nullable: false),
                     CategoryId = table.Column<long>(type: "bigint", nullable: false)
                 },
@@ -83,7 +84,7 @@ namespace WebShop.Migrations
                     OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ProductId = table.Column<long>(type: "bigint", nullable: false),
                     ProductPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Quantity = table.Column<long>(type: "bigint", nullable: false)
+                    Quantity = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -103,33 +104,13 @@ namespace WebShop.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Sizes",
-                columns: table => new
-                {
-                    SizeId = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SizeNumber = table.Column<long>(type: "bigint", nullable: false),
-                    ProductId = table.Column<long>(type: "bigint", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Sizes", x => x.SizeId);
-                    table.ForeignKey(
-                        name: "FK_Sizes_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "ProductId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Themes",
                 columns: table => new
                 {
                     ThemeId = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Image = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    Name = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false),
+                    Image = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
                     ProductId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
@@ -159,11 +140,6 @@ namespace WebShop.Migrations
                 column: "SupplierId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Sizes_ProductId",
-                table: "Sizes",
-                column: "ProductId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Themes_ProductId",
                 table: "Themes",
                 column: "ProductId");
@@ -173,9 +149,6 @@ namespace WebShop.Migrations
         {
             migrationBuilder.DropTable(
                 name: "OrderItem");
-
-            migrationBuilder.DropTable(
-                name: "Sizes");
 
             migrationBuilder.DropTable(
                 name: "Themes");

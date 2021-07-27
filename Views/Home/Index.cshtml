@@ -11,6 +11,7 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Image</th>
                 <th>Name</th>
                 <th>Price</th>
                 <th>Category</th>
@@ -23,6 +24,14 @@
             {
                 <tr>
                     <td>@p.ProductId</td>
+                    <td>
+                        @foreach (var theme in p.Themes)
+                        {
+                            <img src="data:image/jpg;base64, 
+                                 @theme.GetImageBase64" alt="Image not found" width="100"
+                                 asp-append-version="true"/>
+                        }
+                    </td>
                     <td>@p.Name</td>
                     <td>@p.Price</td>
                     <td>@p.Category.Name</td>
@@ -41,9 +50,9 @@
             }
         </tbody>
     </table>
-    <div path-value="@(ViewBag.CurrentCategoryId ?? (ViewBag.Search ?? -1))" 
+    <div path-value="@(ViewBag.CurrentCategoryId ?? (ViewBag.Search ?? -1))"
          current-page="PaginationInfo.CurrentPage"
-         total-pages="PaginationInfo.TotalPages" >
+         total-pages="PaginationInfo.TotalPages">
     </div>
     <div>
         <a class="btn btn-outline-primary" asp-action="Create"

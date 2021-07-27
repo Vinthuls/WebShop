@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-
+using WebShop.Images;
 namespace WebShop.Models
 {
     public class SeedData
@@ -24,7 +24,7 @@ namespace WebShop.Models
                     City = "Chicago"
                 };
                 Supplier s3 = new Supplier {
-                    Name = "Nike?", 
+                    Name = "Nike", 
                     City = "New York" 
                 };
                 Category c1 = new Category { Name = "Shoes" };
@@ -45,7 +45,43 @@ namespace WebShop.Models
                     Name = "CLUB TEE - T-shirt", Price = 70,
                     Category = c2, Supplier = s2, Quantity = 420
                 };
-
+                context.Themes.AddRange(
+                    new Theme {
+                        Name = "core black",
+                        Image = ImageConverter.ImageFromFilePathToByteArray(
+                            @"C:\Users\Kamil\Desktop\Images\core black.png"),
+                        Product = p1,
+                    },
+                    new Theme {
+                        Name = "footwear white",
+                        Image = ImageConverter.ImageFromFilePathToByteArray(
+                            @"C:\Users\Kamil\Desktop\Images\footwear white.png"),
+                        Product = p1,
+                    },
+                    new Theme {
+                        Name = "arctic orange",
+                        Image = ImageConverter.ImageFromFilePathToByteArray(
+                            @"C:\Users\Kamil\Desktop\Images\arctic orange.png"),
+                        Product = p2,
+                    }, 
+                    new Theme {
+                        Name = "treeline",
+                        Image = ImageConverter.ImageFromFilePathToByteArray(
+                            @"C:\Users\Kamil\Desktop\Images\treeline.png"),
+                        Product = p2,
+                    },
+                    new Theme {
+                        Name = "black",
+                        Image = ImageConverter.ImageFromFilePathToByteArray(
+                            @"C:\Users\Kamil\Desktop\Images\black.png"),
+                        Product = p3,
+                    },
+                    new Theme {
+                        Name = "medium gray heather",
+                        Image = ImageConverter.ImageFromFilePathToByteArray(
+                            @"C:\Users\Kamil\Desktop\Images\medium gray heather.png"),
+                        Product = p3,
+                    });
                 context.SaveChanges();
             }
         }

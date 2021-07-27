@@ -70,13 +70,12 @@ namespace WebShop.Controllers
             Expression<Func<Product, bool>> predicate, int currentPage, out int count)
         {
             count = _dataContext.Products
-                    .Include(p => p.Category)
-                    .Include(p => p.Supplier)
                     .Where(predicate)
                     .Count();
             return _dataContext.Products
                     .Include(p => p.Category)
                     .Include(p => p.Supplier)
+                    .Include(p => p.Themes)
                     .Where(predicate)
                     .Skip((currentPage - 1) * itemsPerPage)
                     .Take(itemsPerPage);

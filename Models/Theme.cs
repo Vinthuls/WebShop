@@ -1,9 +1,12 @@
 ﻿using System;
+using System.IO;
+using System.Drawing;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+
 namespace WebShop.Models
 {
     public class Theme
@@ -18,6 +21,8 @@ namespace WebShop.Models
 
         [Required]
         public byte[] Image { get; set; }
+
+        public string GetImageBase64 => Convert.ToBase64String(Image);
 
         [Required]
         public long ProductId { get; set; }

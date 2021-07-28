@@ -25,9 +25,9 @@ namespace WebShop.Models
         [Required]
         [Range(0, 999999, ErrorMessage = "Quantity must be in range of 0 to 999999.99")]
         public decimal Quantity { get; set; }
-        public IEnumerable<Theme> Themes { get; set; }
+        public List<Theme> Themes { get; set; }
         //public IEnumerable<Size> Sizes { get; set; }
-        public IEnumerable<OrderItem> OrderItems { get; set; }
+        public List<OrderItem> OrderItems { get; set; }
 
         [Required]
         public long SupplierId { get; set; }

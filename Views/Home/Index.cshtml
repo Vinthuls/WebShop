@@ -2,60 +2,36 @@
 @{
     //Layout = "_Layout";
     ViewData["Title"] = "Home Page";
+
 }
-<div>
-    <h4 class="bg-dark text-white text-center p-2">Products list</h4>
-</div>
-<div>
-    <table class="table table-sm table-bordered table-striped align-middle">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Category</th>
-                <th>Supplier</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
+<main>
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             @foreach (var p in Model.Products)
             {
-                <tr>
-                    <td>@p.ProductId</td>
-                    <td>
-                        @foreach (var theme in p.Themes)
-                        {
-                            <img src="data:image/jpg;base64, 
-                                 @theme.GetImageBase64" alt="Image not found" width="100"
-                                 asp-append-version="true"/>
-                        }
-                    </td>
-                    <td>@p.Name</td>
-                    <td>@p.Price</td>
-                    <td>@p.Category.Name</td>
-                    <td>@p.Supplier.Name</td>
-                    <td class="text-center">
-                        <a class="btn btn-outline-info" asp-action="Read" asp-controller="Form"
-                           asp-route-id="@p.ProductId" role="button">Read</a>
-                        <a class="btn btn-outline-secondary" asp-action="Update" asp-controller="Form"
-                           asp-route-id="@p.ProductId" role="button">Update</a>
-                        <a class="btn btn-outline-danger" asp-action="Delete" asp-controller="Form"
-                           asp-route-id="@p.ProductId" role="button">Delete</a>
-                        <a class="btn btn-outline-success" asp-action="Add" asp-controller="Cart"
-                           asp-route-id="@p.ProductId" role="button">Add to cart.</a>
-                    </td>
-                </tr>
+            <div class="col-4 align-items-center">
+                <div class="card shadow-sm">
+                    <img class="card-img" src="data:image/jpg;base64,
+                                @p.Themes[0].GetImageBase64" alt="Image not found"
+                         asp-append-version="true" />
+                    <div class="card-body">
+                        <h6 class="card-subtitle mb-2 text-muted">@p.Themes[0].Name</h6>
+                        <p class="card-text">
+                            @p.Themes.Count() theme(s) avalaible! <br />
+                            Brand: @p.Supplier.Name
+                        </p>
+                        <div class="buy d-flex justify-content-between align-items-center">
+                            <div class="price text-success"><h5 class="mt-4">@p.Price.ToString("c")</h5></div>
+                            <a href="#" class="btn btn-danger mt-3"> Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
             }
-        </tbody>
-    </table>
+        </div>
+    </div>
     <div path-value="@(ViewBag.CurrentCategoryId ?? (ViewBag.Search ?? -1))"
          current-page="PaginationInfo.CurrentPage"
          total-pages="PaginationInfo.TotalPages">
     </div>
-    <div>
-        <a class="btn btn-outline-primary" asp-action="Create"
-           asp-controller="Form" role="button">Create</a>
-    </div>
-</div>
+</main>

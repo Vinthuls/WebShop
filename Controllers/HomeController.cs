@@ -14,7 +14,7 @@ namespace WebShop.Controllers
     public class HomeController : Controller
     {      
         private DataContext _dataContext;
-        private int itemsPerPage = 2;
+        private int itemsPerPage = 3;
         public HomeController(DataContext dataContext)
         {
             _dataContext = dataContext;

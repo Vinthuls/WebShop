@@ -21,7 +21,7 @@ namespace WebShop.Models
 
         [Required]
         public byte[] Image { get; set; }
-
+        [NotMapped]
         public string GetImageBase64 => Convert.ToBase64String(Image);
 
         [Required]

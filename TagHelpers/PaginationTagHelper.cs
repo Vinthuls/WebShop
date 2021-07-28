@@ -23,7 +23,7 @@ namespace WebShop.TagHelpers
             navPag.Attributes["aria-label"] = "...";
 
             TagBuilder list = new TagBuilder("ul");
-            list.Attributes["class"] = "pagination pagination-sm";
+            list.Attributes["class"] = "pagination pagination-";
 
             for(int i = 1; i <= (int)TotalPages.Model; i++)
             {

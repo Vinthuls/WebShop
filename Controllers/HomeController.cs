@@ -66,6 +66,12 @@ namespace WebShop.Controllers
             });
         }
 
+        public async Task<IActionResult> ProductDetails(long id)
+                    => View (await _dataContext.Products
+                                .Include(p => p.Supplier)
+                                .Include(p => p.Themes)
+                                .FirstOrDefaultAsync(p => p.ProductId == id));
+
         private IEnumerable<Product> ProductFilter(
             Expression<Func<Product, bool>> predicate, int currentPage, out int count)
         {
@@ -73,12 +79,12 @@ namespace WebShop.Controllers
                     .Where(predicate)
                     .Count();
             return _dataContext.Products
-                    .Include(p => p.Category)
                     .Include(p => p.Supplier)
                     .Include(p => p.Themes)
                     .Where(predicate)
                     .Skip((currentPage - 1) * itemsPerPage)
-                    .Take(itemsPerPage);
+                    .Take(itemsPerPage)
+                    .OrderBy(p => p.ProductId);
         }
         public IActionResult Privacy()
         {

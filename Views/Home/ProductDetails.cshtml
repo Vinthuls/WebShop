@@ -1,0 +1,32 @@
+﻿@model Product
+@{
+
+}
+<div class="d-flex justify-content-center ">
+    <div class="m-lg-5">
+        <img src="data:image/jpg;base64, @Model.Themes[0].GetImageBase64" 
+             alt="Image not found" width="400" class="rounded shadow-sm"
+                asp-append-version="true" />
+    </div>
+    <div class="m-lg-5">
+        <h1>
+            @Model.Supplier.Name
+        </h1>
+        <h2 class="font-weight-bold">
+            @Model.Name
+        </h2>
+        <h2 class="text-success mt-3">
+            @Model.Price.ToString("c")
+        </h2>
+        <div class="mt-5">
+            @foreach (var theme in Model.Themes)
+            {
+                <img src="data:image/jpg;base64, @theme.GetImageBase64"
+                     alt="Image not found" width="50" class="rounded shadow-sm m-1"
+                     asp-append-version="true" />
+            }
+        </div>
+    </div>
+</div>
+
+

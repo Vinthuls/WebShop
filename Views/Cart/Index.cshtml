@@ -13,8 +13,8 @@
     <table class="table table-sm table-bordered table-striped align-middle">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Name</th>
+                <th>Theme</th>
                 <th>Price</th>
                 <th>Quanitity</th>
                 <th></th>
@@ -24,13 +24,14 @@
             @foreach (var CartItem in Model.CartItems)
             {
                 <tr>
-                    <td>@CartItem.Product.ProductId</td>
                     <td>@CartItem.Product.Name</td>
+                    <td>@CartItem.Theme.Name</td>
                     <td>@CartItem.Product.Price</td>
                     <td>@CartItem.Quantity</td>
                     <td>
                         <a class="btn btn-outline-success" asp-action="Remove" asp-controller="Cart"
-                           asp-route-id="@CartItem.Product.ProductId" role="button">Remove product.</a>
+                           asp-route-id="@CartItem.Product.ProductId" asp-route-themeId="@CartItem.Theme.ThemeId"
+                           role="button">Remove product.</a>
                     </td>
                 </tr>
             }

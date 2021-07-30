@@ -12,14 +12,14 @@
                 <div class="col-4 mt-4">
                     <div class="card shadow-sm ">
                         <a asp-controller="Home" asp-action="ProductDetails" 
-                           asp-route-id="@p.ProductId" >
+                           asp-route-id="@p.ProductId" asp-route-themeId="@p.Themes[0].ThemeId" >
                             <img class="card-img" src="data:image/jpg;base64,
                                 @p.Themes[0].GetImageBase64" alt="Image not found"
                              asp-append-version="true" />
                         </a>
                         <div class="card-body">
-                            <h6 class="card-subtitle mb-2 text-muted">@p.Themes[0].Name</h6>
-                            <p class="card-text">
+                            <h6 class="card-subtitle mb-2 text-muted">Theme: @p.Themes[0].Name</h6>
+                            <p class="card-text font-weight-bold">
                                 @p.Name
                                 <br />
                                 Brand: @p.Supplier.Name
@@ -27,9 +27,10 @@
                                 @p.Themes.Count() theme(s) avalaible!
                             </p>
                             <div class="buy d-flex justify-content-between align-items-center">
-                                <div class="price text-success"><h5 class="mt-4">@p.Price.ToString("c")</h5></div>
-                                <a class="btn btn-danger mt-3" asp-controller="cart"
-                                   asp-action="Add" asp-route-id="@p.ProductId"> Add to Cart</a>
+                                <div class="text-success"><h5 class="mt-4 font-weight-bold">@p.Price.ToString("c")</h5></div>
+                                <a class="btn btn-outline-secondary mt-3 font-weight-bold" asp-controller="Home"
+                                   asp-action="ProductDetails" asp-route-id="@p.ProductId" asp-route-themeId="@p.Themes[0].ThemeId">
+                                    Product details.</a>
                             </div>
                         </div>
                     </div>

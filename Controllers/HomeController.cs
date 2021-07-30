@@ -12,7 +12,7 @@ using WebShop.Models;
 namespace WebShop.Controllers
 {
     public class HomeController : Controller
-    {      
+    {
         private DataContext _dataContext;
         private int itemsPerPage = 3;
         public HomeController(DataContext dataContext)
@@ -50,12 +50,12 @@ namespace WebShop.Controllers
             });
         }
 
-        public IActionResult SearchProduct(string name , int currentPage = 1)
+        public IActionResult SearchProduct(string name, int currentPage = 1)
         {
             ViewBag.Search = name;
             return View("Index", new ProductPaging()
             {
-                Products = ProductFilter(p => p.Name.Contains(name), 
+                Products = ProductFilter(p => p.Name.Contains(name),
                                 currentPage, out int count),
                 PaginationInfo = new PaginationInfo()
                 {
@@ -66,11 +66,17 @@ namespace WebShop.Controllers
             });
         }
 
-        public async Task<IActionResult> ProductDetails(long id)
-                    => View (await _dataContext.Products
-                                .Include(p => p.Supplier)
-                                .Include(p => p.Themes)
-                                .FirstOrDefaultAsync(p => p.ProductId == id));
+        public async Task<IActionResult> ProductDetails(long id, long themeId)
+        {    
+            Product p = await _dataContext.Products
+                        .Include(p => p.Supplier)
+                        .Include(p => p.Themes)
+                        .FirstOrDefaultAsync(p => p.ProductId == id);
+            ViewBag.ThemeId = themeId;
+            ViewBag.ThemeIndex = themeId - p.Themes.FirstOrDefault().ThemeId;
+            
+            return View(p);
+        }
 
         private IEnumerable<Product> ProductFilter(
             Expression<Func<Product, bool>> predicate, int currentPage, out int count)

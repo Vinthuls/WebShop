@@ -14,6 +14,7 @@ namespace WebShop.Models
     public class CartItem
     {
         public Product Product { get; set; }
+        public Theme Theme { get; set; }
         public int Quantity { get; set; }
     }
 }

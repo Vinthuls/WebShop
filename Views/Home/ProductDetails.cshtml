@@ -1,14 +1,20 @@
 ﻿@model Product
 @{
-
 }
+<style>
+    img.border-solid:hover {
+        border: 2px;
+        border-style: solid;
+        border-color: black;
+    }
+</style>
 <div class="d-flex justify-content-center ">
     <div class="m-lg-5">
-        <img src="data:image/jpg;base64, @Model.Themes[0].GetImageBase64" 
+        <img src="data:image/jpg;base64, @Model.Themes[(int)ViewBag.ThemeIndex].GetImageBase64"
              alt="Image not found" width="400" class="rounded shadow-sm"
-                asp-append-version="true" />
+             asp-append-version="true" />
     </div>
-    <div class="m-lg-5">
+    <div class="m-lg-5 font-italic">
         <h1>
             @Model.Supplier.Name
         </h1>
@@ -19,13 +25,23 @@
             @Model.Price.ToString("c")
         </h2>
         <div class="mt-5">
+            <h5>
+                Theme: <br />
+                @Model.Themes[(int)ViewBag.ThemeIndex].Name
+            </h5>
             @foreach (var theme in Model.Themes)
             {
-                <img src="data:image/jpg;base64, @theme.GetImageBase64"
-                     alt="Image not found" width="50" class="rounded shadow-sm m-1"
-                     asp-append-version="true" />
+                <a asp-controller="Home" asp-action="ProductDetails"
+                   asp-route-id="@theme.ProductId" asp-route-themeId="@theme.ThemeId">
+                    <img src="data:image/jpg;base64, @theme.GetImageBase64"
+                         alt="Image not found" width="50" class="border-solid rounded"
+                         asp-append-version="true" />
+                </a>
             }
         </div>
+        <a class="btn btn-outline-dark mt-5 btn-lg w-100"
+           asp-controller="cart" asp-action="add" 
+           asp-route-id="@Model.ProductId" asp-route-themeId="@ViewBag.ThemeId">Add to cart</a>
     </div>
 </div>
 

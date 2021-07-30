@@ -30,6 +30,7 @@ namespace WebShop.Controllers
         {
             Product p =
                 await DataContext.Products
+                        .Include(p => p.Supplier)
                         .Where(p => p.ProductId == id)
                         .FirstOrDefaultAsync();
             Theme t =
@@ -37,10 +38,8 @@ namespace WebShop.Controllers
                         .Where(t => t.ThemeId == themeId)
                         .FirstOrDefaultAsync();
 
-            foreach(Theme theme in p.Themes)
-            {
-                theme.Product = null;
-            }
+            p.Themes = null;
+            p.Supplier.Products = null;
 
             ShoppingCart = MySessionExtensions.Get<ShoppingCart>(HttpContext.Session, "cart");
             if(null == ShoppingCart) 

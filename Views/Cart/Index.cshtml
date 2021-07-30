@@ -2,6 +2,8 @@
 @{ 
     
 }
+<style>
+</style>
 <div class="m-2 table-responsive">
     <h4 class="bg-dark text-white text-center p-2">Shopping Cart</h4>
     @if (null == Model || 0 == Model.CartItems.Count())
@@ -13,22 +15,30 @@
     <table class="table table-sm table-bordered table-striped align-middle">
         <thead>
             <tr>
+                <th>
+                    
+                </th>
                 <th>Name</th>
                 <th>Theme</th>
                 <th>Price</th>
                 <th>Quanitity</th>
                 <th></th>
-            </tr>
+            </tr>   
         </thead>
-        <tbody>
+        <tbody >
             @foreach (var CartItem in Model.CartItems)
             {
-                <tr>
+                <tr class="justify-content-center" >
+                    <td>
+                        <img src="data:image/jpg;base64, @CartItem.Theme.GetImageBase64"
+                         alt="Image not found" width="100" class="rounded shadow-sm img-thumbnail"
+                         asp-append-version="true" />
+                    </td>
                     <td>@CartItem.Product.Name</td>
                     <td>@CartItem.Theme.Name</td>
-                    <td>@CartItem.Product.Price</td>
+                    <td>@CartItem.Product.Price.ToString("c")</td>
                     <td>@CartItem.Quantity</td>
-                    <td>
+                    <td class="text-center" style="width: 15%">
                         <a class="btn btn-outline-success" asp-action="Remove" asp-controller="Cart"
                            asp-route-id="@CartItem.Product.ProductId" asp-route-themeId="@CartItem.Theme.ThemeId"
                            role="button">Remove product.</a>
@@ -36,15 +46,19 @@
                 </tr>
             }
             <tr>
-                <td>Total Price:</td>
-                <td colspan="4">@Model.CartItems.Sum(ci => 
-                           ci.Product.Price * ci.Quantity).ToString("c")</td>
+                <td class="font-weight-bold">Total Price:</td>
+                <td class="font-weight-bold" colspan="5">
+                    @Model.CartItems.Sum(ci => 
+                    ci.Product.Price * ci.Quantity).ToString("c")
+                </td>
             </tr>
         </tbody>
     </table>
     }
-    <div>
-        <a class="btn btn-outline-primary" asp-action="Index"
-           asp-controller="Home" role="button">Continue shopping.</a>
-    </div>
+<div>
+    <a class="btn btn-outline-primary" asp-action="Index"
+       asp-controller="Home" role="button">Continue shopping.</a>
+    <a class="btn btn-outline-success" asp-action="Index"
+       asp-controller="Checkout" role="button">Checkout.</a>
+</div>
 </div>

@@ -5,15 +5,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebShop.Models;
 using Microsoft.AspNetCore.Identity;
+using WebShop.Extensions;
 
 namespace WebShop.Controllers
 {
-    public class Checkout : Controller
+    public class CheckoutController : Controller
     {
-        private DataContext dataContext { get; set; }
-        private UserManager<MyUser> userManager { get; set; }
+        private DataContext dataContext;
+        private UserManager<MyUser> userManager;
 
-        public Checkout(DataContext dataContext, UserManager<MyUser> userManager)
+        public CheckoutController(DataContext dataContext, UserManager<MyUser> userManager)
         {
             this.dataContext = dataContext;
             this.userManager = userManager;
@@ -21,7 +22,8 @@ namespace WebShop.Controllers
 
         public IActionResult Index()
         {
-            return View();
+
+            return View("Checkout", MySessionExtensions.Get<ShoppingCart>(HttpContext.Session, "cart"));
         }
     }
 }

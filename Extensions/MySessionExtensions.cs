@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using System.Text.Json;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace WebShop.Extensions
 {
@@ -16,6 +17,7 @@ namespace WebShop.Extensions
         }
         public static T Get<T>(this ISession session, string key)
         {
+
             var value = session.GetString(key);
             return value == null ? default(T) : JsonSerializer.Deserialize<T>(value);
         }

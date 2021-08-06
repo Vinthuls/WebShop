@@ -32,54 +32,54 @@ namespace WebShop.Models
                 Category c3 = new Category { Name = "Trousers" };
 
                 Product p1 = new Product {
-                    Name = "FORUM LOW UNISEX", Price = 275,
+                    Name = "FORUM LOW UNISEX", Price = 1337,
                     Category = c1, Supplier = s1, Quantity = 69
                 };
                 
                 Product p2 = new Product {
-                    Name = "LOGO PANTS", Price = 275,
+                    Name = "LOGO PANTS", Price = 420,
                     Category = c3, Supplier = s3, Quantity = 1337
                 };
 
                 Product p3 = new Product {
-                    Name = "CLUB TEE - T-shirt", Price = 70,
+                    Name = "CLUB TEE - T-shirt", Price = 69,
                     Category = c2, Supplier = s2, Quantity = 420
                 };
                 context.Themes.AddRange(
                     new Theme {
                         Name = "core black",
                         Image = ImageConverter.ImageFromFilePathToByteArray(
-                            @"C:\Users\Kamil\Desktop\Images\core black.png"),
+                            @"Images\SeedImages\Abibas\core black.png"),
                         Product = p1,
                     },
                     new Theme {
                         Name = "footwear white",
                         Image = ImageConverter.ImageFromFilePathToByteArray(
-                            @"C:\Users\Kamil\Desktop\Images\footwear white.png"),
+                            @"Images\SeedImages\Abibas\footwear white.png"),
                         Product = p1,
                     },
                     new Theme {
                         Name = "arctic orange",
                         Image = ImageConverter.ImageFromFilePathToByteArray(
-                            @"C:\Users\Kamil\Desktop\Images\arctic orange.png"),
+                            @"Images\SeedImages\Nike\arctic orange.png"),
                         Product = p2,
                     }, 
                     new Theme {
                         Name = "treeline",
                         Image = ImageConverter.ImageFromFilePathToByteArray(
-                            @"C:\Users\Kamil\Desktop\Images\treeline.png"),
+                            @"Images\SeedImages\Nike\treeline.png"),
                         Product = p2,
                     },
                     new Theme {
                         Name = "black",
                         Image = ImageConverter.ImageFromFilePathToByteArray(
-                            @"C:\Users\Kamil\Desktop\Images\black.png"),
+                            @"Images\SeedImages\Pumba\black.png"),
                         Product = p3,
                     },
                     new Theme {
                         Name = "medium gray heather",
                         Image = ImageConverter.ImageFromFilePathToByteArray(
-                            @"C:\Users\Kamil\Desktop\Images\medium gray heather.png"),
+                            @"Images\SeedImages\Pumba\medium gray heather.png"),
                         Product = p3,
                     });
                 context.SaveChanges();

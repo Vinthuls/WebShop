@@ -55,6 +55,8 @@ namespace WebShop
 
             services.AddDistributedMemoryCache();
             services.AddSession();
+            services.AddHttpContextAccessor();
+            services.AddScoped(sp => ShoppingCart.GetShoppingCart(sp));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -92,11 +94,11 @@ namespace WebShop
                     defaults: new { controller = "Home", Action = "Index"});
                 endpoints.MapControllerRoute(
                     name: "categoryPagination",
-                    pattern: "Page/{currentPage:int=1}/{currentCategoryId:long}",
+                    pattern: "Page/{currentCategoryId:long}/{currentPage:int=1}",
                     defaults: new { controller = "Home", Action = "SelectCategory" });
                 endpoints.MapControllerRoute(
-                    name: "search",
-                    pattern: "Page/{currentPage:int=1}/{name}",
+                    name: "searchPagination",
+                    pattern: "Page/{name}/{currentPage:int=1}",
                     defaults: new { controller = "Home", Action = "SearchProduct" });
                 endpoints.MapRazorPages();
             });

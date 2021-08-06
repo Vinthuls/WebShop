@@ -15,8 +15,11 @@ namespace WebShop.Models
         public Order Order { get; set; }
         public long ProductId { get; set; }
         public Product Product { get; set; }
+        public long ThemeId { get; set; }
+
         [Range(0, 999999999.99)]
         public decimal ProductPrice { get; set; }
+
         [Range(0, 999999)]
         public decimal Quantity { get; set; }
     }

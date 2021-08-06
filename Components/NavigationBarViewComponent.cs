@@ -11,17 +11,19 @@ namespace WebShop.Components
     public class NavigationBarViewComponent : ViewComponent
     {
         private DataContext context;
-        public NavigationBarViewComponent(DataContext dataContext)
+        private ShoppingCart shoppingCart;
+        public NavigationBarViewComponent(DataContext dataContext, ShoppingCart cart)
         {
             context = dataContext;
+            shoppingCart = cart;
         }
 
         public IViewComponentResult Invoke()
         {
-            ShoppingCart cart = MySessionExtensions.Get<ShoppingCart>(HttpContext.Session, "cart");
-            ViewBag.itemsCount = cart?.CartItems.Sum(ci => ci.Quantity) ?? 0;
-            ViewBag.totalPrice = cart?.CartItems.Sum(ci => 
-                ci.Product.Price * ci.Quantity).ToString("c") ?? "";
+            
+            ViewBag.itemsCount = shoppingCart.CartItems.Sum(ci => ci.Quantity);
+            ViewBag.totalPrice = shoppingCart.CartItems.Sum(ci => 
+                ci.Product.Price * ci.Quantity).ToString("c");
 
             return View(context.Products
                 .Select(c => c.Category)

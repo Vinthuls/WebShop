@@ -13,89 +13,73 @@ namespace WebShop.Controllers
     public class CartController : Controller
     {
         public DataContext DataContext;
-        
-        public CartController(DataContext dataContext)
+        public ShoppingCart shoppingCart;
+
+        public CartController(DataContext dataContext, ShoppingCart cart)
         {
             DataContext = dataContext;
+            shoppingCart = cart;
         }
-
-        public ShoppingCart ShoppingCart;
 
         public IActionResult Index()
         {
-            ShoppingCart = MySessionExtensions.Get<ShoppingCart>(HttpContext.Session, "cart");
-            return View(ShoppingCart);
+            return View(shoppingCart);
         }
         public async Task<IActionResult> Add(long id, long themeId)
         {
-            Product p =
+            CartItem item = shoppingCart.CartItems
+                            .FindAll(ci =>
+                                ci.Product.ProductId == id &&
+                                ci.Theme.ThemeId == themeId).FirstOrDefault();
+            if(item is null)
+            {
+                Product p =
                 await DataContext.Products
                         .Include(p => p.Supplier)
                         .Where(p => p.ProductId == id)
                         .FirstOrDefaultAsync();
-            Theme t =
-                await DataContext.Themes
-                        .Where(t => t.ThemeId == themeId)
-                        .FirstOrDefaultAsync();
+                Theme t =
+                    await DataContext.Themes
+                            .Where(t => t.ThemeId == themeId)
+                            .FirstOrDefaultAsync();
 
-            p.Themes = null;
-            p.Supplier.Products = null;
+                p.Themes = null;
+                p.Supplier.Products = null;
 
-            ShoppingCart = MySessionExtensions.Get<ShoppingCart>(HttpContext.Session, "cart");
-            if(null == ShoppingCart) 
-            {
-                ShoppingCart = new ShoppingCart();
-                ShoppingCart.CartItems.Add(new CartItem { Product = p, Theme = t, Quantity = 1 });
-                MySessionExtensions.Set(HttpContext.Session, "cart", ShoppingCart);
-                return View("~/Views/Cart/Index.cshtml", ShoppingCart);
+                shoppingCart.CartItems.Add(new CartItem() 
+                { 
+                    Product = p, 
+                    Theme = t, 
+                    Quantity = 1
+                });
             }
-            else 
+            else
             {
-                if (checkIfExists(p.ProductId, t.ThemeId, out int index))
-                {
-                    ShoppingCart.CartItems[index].Quantity++;
-                }
-                else
-                {
-                    ShoppingCart.CartItems.Add(
-                        new CartItem { Product = p, Theme = t, Quantity = 1 });
-                }
-                MySessionExtensions.Set(HttpContext.Session, "cart", ShoppingCart);
-                return View("~/Views/Cart/Index.cshtml", ShoppingCart);
+                item.Quantity++;
             }
+            shoppingCart.SetShoppingCart("cart", shoppingCart);
+            return View("~/Views/Cart/Index.cshtml", shoppingCart);
+            
         }
 
         public IActionResult Remove(long id, long themeId)
         {
-            ShoppingCart = MySessionExtensions.Get<ShoppingCart>(HttpContext.Session, "cart");
-            if (checkIfExists(id, themeId, out int index) 
-                && ShoppingCart.CartItems[index].Quantity > 1)
+            CartItem item = shoppingCart.CartItems
+                            .FindAll(ci =>
+                                ci.Product.ProductId == id &&
+                                ci.Theme.ThemeId == themeId).FirstOrDefault();
+
+            if (item.Quantity > 1)
             {
-                ShoppingCart.CartItems[index].Quantity--;
+                item.Quantity--;
             }
             else
             {
-                ShoppingCart.CartItems.RemoveAll(ci => ci.Product.ProductId == id 
+                shoppingCart.CartItems.RemoveAll(ci => ci.Product.ProductId == id 
                                                     && ci.Theme.ThemeId == themeId);
             }
-
-            MySessionExtensions.Set(HttpContext.Session, "cart", ShoppingCart);
-            return View("~/Views/Cart/Index.cshtml", ShoppingCart);
-        }
-        
-        private bool checkIfExists(long id, long themeId, out int index)
-        {
-            for (int i = 0; i < ShoppingCart.CartItems.Count(); i++)
-            {
-                if(ShoppingCart.CartItems[i].Product.ProductId ==  id
-                    && ShoppingCart.CartItems[i].Theme.ThemeId == themeId)
-                {
-                    index = i;
-                    return true;
-                }
-            }
-            index = -1;
-            return false;
+            shoppingCart.SetShoppingCart("cart", shoppingCart);
+            return View("~/Views/Cart/Index.cshtml", shoppingCart);
         }
     }
 }

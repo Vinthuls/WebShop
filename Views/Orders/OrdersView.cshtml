@@ -1,0 +1,15 @@
+﻿@model IEnumerable<Order>
+
+@foreach (var Order in Model)
+{
+    <h3>@Order.MyUserId</h3>
+    <h3>@Order.OrderId</h3>
+    <h3>@Order.OrderDate</h3>
+    <h3>@Order.TotalPrice</h3>
+    @foreach (var OrderItem in Order.OrderItems)
+    {
+        <h1>@OrderItem.Product.Name</h1>
+        <h1>@OrderItem.ProductId</h1>
+        <h1>@OrderItem.Quantity</h1>
+    }
+}

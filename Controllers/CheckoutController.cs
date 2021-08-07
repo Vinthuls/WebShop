@@ -53,16 +53,13 @@ namespace WebShop.Controllers
 
                 foreach (var cartItem in cart.CartItems)
                 {
-                    cartItem.Product.ProductId = default;
-                    cartItem.Product.Supplier = default;
-                    cartItem.Product.Category = default;
-                    cartItem.Product.Themes = default;
+                    
                     dataContext.Add(new OrderItem
                     {
                         OrderId = default,
                         Order = order,
-                        ProductId = default,
-                        Product = cartItem.Product,
+                        ProductId = cartItem.Product.ProductId,
+                        Product = default,
                         ProductPrice = cartItem.Product.Price,
                         Quantity = cartItem.Quantity,
                         ThemeId = cartItem.Theme.ThemeId

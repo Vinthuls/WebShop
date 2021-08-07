@@ -27,5 +27,6 @@ namespace WebShop.Models
         [Required]
         public long ProductId { get; set; }
         public Product Product { get; set; }
+        public List<OrderItem> OrderItems { get; set; }
     }
 }

@@ -2,7 +2,7 @@
 
 <div class="container">
     <main>
-        @if (Model is not null)
+        @if (Model.ShoppingCart.CartItems.Count() > 0)
         {
             <div class="row g-5">
                 <div class="col-md-5 col-lg-4 order-md-last">

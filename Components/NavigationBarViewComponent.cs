@@ -24,9 +24,9 @@ namespace WebShop.Components
             ViewBag.itemsCount = shoppingCart.CartItems.Sum(ci => ci.Quantity);
             ViewBag.totalPrice = shoppingCart.CartItems.Sum(ci => 
                 ci.Product.Price * ci.Quantity).ToString("c");
+            ViewBag.isLogged = User.Identity.IsAuthenticated;
 
-            return View(context.Products
-                .Select(c => c.Category)
+            return View(context.Categories
                 .Distinct()
                 .OrderBy(c => c));
         }
